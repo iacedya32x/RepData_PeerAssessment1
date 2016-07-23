@@ -16,17 +16,6 @@ This section will load libraries, download the appropriate data from the web (if
 ```r
 # Load libraries
 library(data.table)
-```
-
-```
-## data.table 1.9.6  For help type ?data.table or https://github.com/Rdatatable/data.table/wiki
-```
-
-```
-## The fastest way to learn (by data.table authors): https://www.datacamp.com/courses/data-analysis-the-data-table-way
-```
-
-```r
 library(ggplot2)
 
 # Set working directory
@@ -56,19 +45,12 @@ number of steps taken.  Missing values are left as missing.
 activity_sum <- activity[, .(steps = sum(steps, na.rm = FALSE)),
                          by = .(date)]
 
-# Create a barplot
-#   a). stat = "identity": the bars heights will represent values in the data
-#   b). vjust will adjust the all tick marks in x-axis to align with bars
-#   c). Errors that come up are acceptable as NA values will be plotted
-g <- ggplot(data = activity_sum, mapping = aes(x = date, y = steps))
-g + geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle=90, size = 8, vjust = .5)) +
-  ggtitle("Number of Steps Taken per Day During Oct-Nov, 2012") +
-  labs(x = "Date", y = "Total Steps Taken")
-```
-
-```
-## Warning: Removed 8 rows containing missing values (position_stack).
+# Create a histogram
+hist(x = activity_sum$steps,
+     xlab = "Steps",
+     ylab = "Frequency",
+     main = "Histogram of Steps per Day",
+     breaks = 25)
 ```
 
 ![plot of chunk total_steps](figure/total_steps-1.png)
@@ -160,11 +142,12 @@ activity_imp$steps <- ifelse(is.na(activity_imp$steps),
 activity_sum2 <- activity_imp[, .(steps = sum(steps, na.rm = FALSE)),
                           by = .(date)]
 
-g <- ggplot(data = activity_sum2, mapping = aes(x = date, y = steps))
-g + geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle=90, size = 10, vjust = .5)) +
-  ggtitle("Number of Steps Taken per Day During Oct-Nov, 2012") +
-  labs(x = "Date", y = "Total Steps Taken")
+# Create a histogram
+hist(x = activity_sum2$steps,
+     xlab = "Steps",
+     ylab = "Frequency",
+     main = "Histogram of Steps per Day",
+     breaks = 25)
 ```
 
 ![plot of chunk impute](figure/impute-1.png)
