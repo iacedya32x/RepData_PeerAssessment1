@@ -311,7 +311,14 @@ including the newly imputed values, will be shown here.</p>
 <pre><code class="r"># Calculate the number of missing values in the dataset.
 activity_count_NA &lt;- activity[,.(NACount = sum(is.na(steps)))]
 
-# The mean number of steps for each 5-minute interval across all Oct-Nov, 2012 days
+# Print the number of missing values
+activity_count_NA$NACount
+</code></pre>
+
+<pre><code>## [1] 2304
+</code></pre>
+
+<pre><code class="r"># The mean number of steps for each 5-minute interval across all Oct-Nov, 2012 days
 #   will be used to fill in missing values.
 activity_mean &lt;- activity[,.(steps_mean = mean(steps, na.rm = TRUE)),
                               by = .(interval)]
